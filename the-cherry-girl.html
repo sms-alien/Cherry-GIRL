@@ -1,0 +1,626 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TO THE CHERRY GIRL</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Montserrat:wght@300;400&family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #fff5f5 0%, #fff 100%);
+            color: #5a3d3d;
+            line-height: 1.8;
+            overflow-x: hidden;
+            position: relative;
+            min-height: 100vh;
+            font-family: 'Montserrat', sans-serif;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem;
+            position: relative;
+            z-index: 10;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 1s 0.5s forwards;
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 3rem;
+            position: relative;
+        }
+        
+        h1 {
+            color: #e75480;
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            font-weight: 300;
+            font-family: 'Dancing Script', cursive;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+            position: relative;
+            display: inline-block;
+        }
+        
+        h1::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, #e75480, transparent);
+            border-radius: 3px;
+        }
+        
+        @media (max-width: 600px) {
+            h1 {
+                font-size: 2.5rem;
+            }
+            .container {
+                padding: 1.5rem;
+            }
+        }
+        
+        .message {
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 3rem;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            margin-bottom: 3rem;
+            position: relative;
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(255,255,255,0.3);
+            transform-style: preserve-3d;
+            perspective: 1000px;
+        }
+        
+        .message::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(45deg, #ff9a9e, #fad0c4, #fad0c4, #a18cd1);
+            z-index: -1;
+            border-radius: 22px;
+            opacity: 0;
+            transition: opacity 0.5s;
+        }
+        
+        .message:hover::before {
+            opacity: 0.3;
+        }
+        
+        .message p {
+            margin-bottom: 2rem;
+            font-size: 1.1rem;
+            text-align: justify;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.5s;
+        }
+        
+        .message p.reveal {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .poem {
+            font-style: italic;
+            text-align: center;
+            margin: 3rem 0;
+            padding: 2rem;
+            border-radius: 15px;
+            background: linear-gradient(to right, rgba(231,84,128,0.05), rgba(255,255,255,0.3), rgba(231,84,128,0.05));
+            position: relative;
+            overflow: hidden;
+            font-family: 'Playfair Display', serif;
+            box-shadow: inset 0 0 10px rgba(0,0,0,0.05);
+        }
+        
+        .poem::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><path fill="%23e75480" opacity="0.05" d="M30,50 Q50,30 70,50 Q50,70 30,50"/></svg>');
+            opacity: 0.3;
+            z-index: -1;
+        }
+        
+        .poem p {
+            margin-bottom: 1.5rem;
+            line-height: 1.9;
+            position: relative;
+        }
+        
+        .question {
+            text-align: center;
+            margin: 4rem 0;
+            position: relative;
+        }
+        
+        .question p {
+            font-size: 1.3rem;
+            margin-bottom: 2rem;
+            font-family: 'Playfair Display', serif;
+            color: #e75480;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .question p::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #e75480, transparent);
+        }
+        
+        .buttons {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+        
+        button {
+            padding: 1rem 2.5rem;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 400;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transform: translateY(0);
+        }
+        
+        button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, transparent, rgba(255,255,255,0.3), transparent);
+            transform: translateX(-100%);
+            transition: transform 0.6s;
+        }
+        
+        button:hover::before {
+            transform: translateX(100%);
+        }
+        
+        #yesBtn {
+            background: linear-gradient(45deg, #e75480, #ff9a9e);
+            color: white;
+        }
+        
+        #noBtn {
+            background: linear-gradient(45deg, #f3f3f3, #e0e0e0);
+            color: #5a3d3d;
+        }
+        
+        button:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+        }
+        
+        button:active {
+            transform: translateY(-2px);
+        }
+        
+        .petal {
+            position: absolute;
+            background-size: contain;
+            background-repeat: no-repeat;
+            opacity: 0;
+            z-index: 1;
+            pointer-events: none;
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><path fill="%23e75480" d="M50,0 C60,20 80,30 100,50 C80,70 60,80 50,100 C40,80 20,70 0,50 C20,30 40,20 50,0 Z"/></svg>');
+        }
+        
+        .blossom-animation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 100;
+            opacity: 0;
+            transition: opacity 1s;
+        }
+        
+        .blossom-animation.active {
+            opacity: 1;
+        }
+        
+        .final-message {
+            text-align: center;
+            margin: 4rem 0;
+            font-size: 1.5rem;
+            color: #e75480;
+            font-family: 'Dancing Script', cursive;
+            opacity: 0;
+            transform: scale(0.8);
+            transition: all 1s;
+            position: relative;
+        }
+        
+        .final-message.show {
+            opacity: 1;
+            transform: scale(1);
+        }
+        
+        .final-message::before, .final-message::after {
+            content: '✿';
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #e75480;
+            opacity: 0.5;
+            font-size: 1.2rem;
+        }
+        
+        .final-message::before {
+            left: -30px;
+        }
+        
+        .final-message::after {
+            right: -30px;
+        }
+        
+        @keyframes fadeInUp {
+            from { 
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to { 
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes fall {
+            0% {
+                top: -10%;
+                opacity: 1;
+                transform: rotate(0deg) scale(1);
+            }
+            80% {
+                opacity: 0.7;
+            }
+            100% {
+                top: 110%;
+                opacity: 0;
+                transform: rotate(360deg) scale(0.5);
+            }
+        }
+        
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+        
+        .hidden {
+            display: none;
+        }
+        
+        .floating-branch {
+            position: fixed;
+            width: 150px;
+            height: 150px;
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><path fill="%23a18cd1" d="M10,50 Q30,30 50,50 Q70,30 90,50" stroke="%238B5A2B" stroke-width="2" fill="none"/><circle cx="30" cy="30" r="5" fill="%23e75480"/><circle cx="70" cy="30" r="5" fill="%23e75480"/><circle cx="50" cy="50" r="5" fill="%23e75480"/></svg>');
+            background-repeat: no-repeat;
+            z-index: 5;
+            opacity: 0.7;
+            animation: float 6s ease-in-out infinite;
+            pointer-events: none;
+        }
+        
+        .branch-1 {
+            top: 10%;
+            left: 5%;
+            animation-delay: 0s;
+        }
+        
+        .branch-2 {
+            top: 70%;
+            right: 5%;
+            animation-delay: 2s;
+        }
+        
+        .heart {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="%23e75480" d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>');
+            background-size: contain;
+            opacity: 0;
+            z-index: 2;
+            pointer-events: none;
+            animation: floatUp 4s ease-in forwards;
+        }
+        
+        @keyframes floatUp {
+            0% {
+                transform: translateY(0) scale(0.5);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100px) scale(1.2);
+                opacity: 0;
+            }
+        }
+        
+        /* Scroll indicator */
+        .scroll-progress {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 0%;
+            height: 4px;
+            background: linear-gradient(90deg, #e75480, #ff9a9e);
+            z-index: 1000;
+            transition: width 0.1s;
+        }
+    </style>
+</head>
+<body>
+    <div class="scroll-progress"></div>
+    
+    <div class="floating-branch branch-1"></div>
+    <div class="floating-branch branch-2"></div>
+    
+    <div class="container">
+        <header>
+            <h1>TO THE CHERRY GIRL</h1>
+        </header>
+        
+        <div class="message">
+            <p>To the person whom I know little but care for a lot — we both know each other less, yet care deeply.</p>
+            <p>I lost my words when I started to write a letter to you, maybe because I know less about you, or maybe because I know more about your way.</p>
+            <p>The weather you love speaks of the freedom you long to explore.</p>
+            
+            <div class="poem">
+                <p>Your presence, like a cherry blossom's fragrance, is beautiful and precious, even if it is only for a short time.</p>
+                <p>Your kindness, care, and love feel gentle and soft, just like the petals of a cherry blossom.</p>
+                <p>The rare moments with you are deeply treasured, just like people treasure cherry blossoms, knowing they bloom for only a little while.</p>
+                <p>You bring happiness and lightness wherever you go, like cherry blossoms in spring.</p>
+                <p>Beautiful people may not stay forever, so I want to cherish every moment with you, just like one cherishes the blossoms of spring.</p>
+            </div>
+            
+            <div class="poem">
+                <p>To me, you are a cherry blossom —</p>
+                <p>Brief our knowing, yet endless our care.</p>
+                <p>Like petals that kiss the spring air,</p>
+                <p>Your presence feels rare, beyond compare.</p>
+                <p>Moments with you, though fleeting and few,</p>
+                <p>Are treasures my heart holds onto true.</p>
+            </div>
+            
+            <p>You are like the fiercest storm —</p>
+            <p>Wild rain, roaring thunder, the heavy breath of the skies.</p>
+            <p>You find beauty in the chaos, strength in the winds,</p>
+            <p>Yet still, you stand there, thinking you are unworthy to feel it.</p>
+            <p>As if the storm itself did not rage just to meet you,</p>
+            <p>As if the sky did not split open just to touch your soul.</p>
+            <p>But hear me — you deserve to stand beneath every sky,</p>
+            <p>To admire every wonder this world holds,</p>
+            <p>For you are more than worthy of its greatest beauty.</p>
+            
+            <div class="poem">
+                <p>Maybe I can't give you the world called Earth,</p>
+                <p>but I can give you a world of care —</p>
+                <p>a world of silence, where your secrets rest upon my chest,</p>
+                <p>a world of love, the kind you seek when you're feeling down,</p>
+                <p>a world of support, where when you're low and need someone to yap through your day,</p>
+                <p>I'll be there — listening to every word, smiling at every ramble.</p>
+                <p>I'll offer my shoulder when your head needs a place to rest,</p>
+                <p>and my heart will be all ears, always — anytime, every time, just to hear you.</p>
+                <p>And above all, I'll give you a world of trust, built just for you.</p>
+            </div>
+        </div>
+        
+        <div class="question" id="initialQuestion">
+            <p>Can you share your spring and sorrow with me for a short period, like your favourite cherry blossom?</p>
+            <div class="buttons">
+                <button id="yesBtn">Yes</button>
+                <button id="noBtn">No</button>
+            </div>
+        </div>
+        
+        <div class="question hidden" id="followUpQuestion">
+            <p>Are you sure? Please say yes...</p>
+            <div class="buttons">
+                <button id="yesBtn2">Yes</button>
+                <button id="noBtn2">No</button>
+            </div>
+        </div>
+        
+        <div class="final-message hidden" id="finalMessage">
+            <p>Thank you for sharing this moment with me ❤️</p>
+        </div>
+    </div>
+    
+    <div class="blossom-animation" id="blossomAnimation"></div>
+    
+    <script>
+        // DOM elements
+        const initialQuestion = document.getElementById('initialQuestion');
+        const followUpQuestion = document.getElementById('followUpQuestion');
+        const finalMessage = document.getElementById('finalMessage');
+        const blossomAnimation = document.getElementById('blossomAnimation');
+        const yesBtn = document.getElementById('yesBtn');
+        const noBtn = document.getElementById('noBtn');
+        const yesBtn2 = document.getElementById('yesBtn2');
+        const noBtn2 = document.getElementById('noBtn2');
+        const messageParagraphs = document.querySelectorAll('.message p');
+        const scrollProgress = document.querySelector('.scroll-progress');
+        
+        // Create cherry blossom petals
+        function createPetals() {
+            const animationDiv = document.getElementById('blossomAnimation');
+            animationDiv.innerHTML = '';
+            animationDiv.classList.add('active');
+            
+            // Create 100 petals
+            for (let i = 0; i < 100; i++) {
+                const petal = document.createElement('div');
+                petal.className = 'petal';
+                
+                // Random properties
+                const size = Math.random() * 25 + 10;
+                const startDelay = Math.random() * 8;
+                const duration = Math.random() * 15 + 10;
+                const left = Math.random() * 100;
+                const animationDelay = Math.random() * 5;
+                
+                petal.style.width = `${size}px`;
+                petal.style.height = `${size}px`;
+                petal.style.left = `${left}vw`;
+                petal.style.animation = `fall ${duration}s linear ${startDelay}s infinite`;
+                petal.style.opacity = (Math.random() * 0.5 + 0.3).toString();
+                
+                animationDiv.appendChild(petal);
+            }
+            
+            // Create floating hearts
+            for (let i = 0; i < 20; i++) {
+                setTimeout(() => {
+                    const heart = document.createElement('div');
+                    heart.className = 'heart';
+                    heart.style.left = `${Math.random() * 100}vw`;
+                    heart.style.bottom = '0';
+                    document.body.appendChild(heart);
+                    
+                    // Remove heart after animation
+                    setTimeout(() => {
+                        heart.remove();
+                    }, 4000);
+                }, i * 200);
+            }
+        }
+        
+        // Event listeners
+        yesBtn.addEventListener('click', () => {
+            initialQuestion.classList.add('hidden');
+            finalMessage.classList.add('show');
+            createPetals();
+            createHearts();
+        });
+        
+        noBtn.addEventListener('click', () => {
+            initialQuestion.classList.add('hidden');
+            followUpQuestion.classList.remove('hidden');
+        });
+        
+        yesBtn2.addEventListener('click', () => {
+            followUpQuestion.classList.add('hidden');
+            finalMessage.classList.add('show');
+            createPetals();
+            createHearts();
+        });
+        
+        noBtn2.addEventListener('click', () => {
+            followUpQuestion.classList.add('hidden');
+            initialQuestion.classList.remove('hidden');
+        });
+        
+        // Create floating hearts
+        function createHearts() {
+            for (let i = 0; i < 10; i++) {
+                setTimeout(() => {
+                    const heart = document.createElement('div');
+                    heart.className = 'heart';
+                    heart.style.left = `${Math.random() * 80 + 10}vw`;
+                    heart.style.bottom = '0';
+                    document.body.appendChild(heart);
+                    
+                    // Remove heart after animation
+                    setTimeout(() => {
+                        heart.remove();
+                    }, 4000);
+                }, i * 300);
+            }
+        }
+        
+        // Scroll progress indicator
+        window.addEventListener('scroll', () => {
+            const scrollHeight = document.documentElement.scrollHeight - window.innerHeight;
+            const scrolled = (window.scrollY / scrollHeight) * 100;
+            scrollProgress.style.width = `${scrolled}%`;
+        });
+        
+        // Animate paragraphs as they come into view
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('reveal');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, {
+            threshold: 0.1
+        });
+        
+        messageParagraphs.forEach(p => {
+            observer.observe(p);
+        });
+        
+        // Mobile optimization
+        function adjustForMobile() {
+            if (window.innerWidth < 600) {
+                document.querySelectorAll('.message p').forEach(p => {
+                    p.style.fontSize = '1rem';
+                });
+                document.querySelectorAll('button').forEach(btn => {
+                    btn.style.padding = '0.8rem 1.8rem';
+                });
+            } else {
+                document.querySelectorAll('.message p').forEach(p => {
+                    p.style.fontSize = '1.1rem';
+                });
+            }
+        }
+        
+        window.addEventListener('resize', adjustForMobile);
+        adjustForMobile(); // Run on initial load
+        
+        // Initial animation
+        setTimeout(() => {
+            document.body.style.overflow = 'auto';
+        }, 1000);
+    </script>
+</body>
+</html>
